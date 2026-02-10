@@ -148,6 +148,36 @@
             </div>
         </section>
 
+        <!-- Projects -->
+        <section id="projects" class="section">
+            <div class="container">
+                <h2 class="section-title mb-lg">Featured Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image-placeholder">Digital Identity</div>
+                        <div class="project-info">
+                            <h3>Apex Properties</h3>
+                            <p>Brand Strategy & Digital Transformation</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image-placeholder">Creative Campaign</div>
+                        <div class="project-info">
+                            <h3>Lumina Tech</h3>
+                            <p>Global Market Expansion</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image-placeholder">Web Ecosystem</div>
+                        <div class="project-info">
+                            <h3>EcoPulse</h3>
+                            <p>Sustainable Brand Growth</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Process -->
         <section id="process" class="section bg-surface">
             <div class="container">
@@ -317,6 +347,18 @@
         }
 
         animateCursor();
+
+        // Background Blobs - Mouse Reactivity
+        const blob1 = document.querySelector('.blob-1');
+        const blob2 = document.querySelector('.blob-2');
+
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 40;
+            const y = (e.clientY / window.innerHeight - 0.5) * 40;
+
+            if (blob1) blob1.style.transform = `translate(${x}px, ${y}px)`;
+            if (blob2) blob2.style.transform = `translate(${-x}px, ${-y}px)`;
+        });
     </script>
 </body>
 

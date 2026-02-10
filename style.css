@@ -2,13 +2,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap');
 
 :root {
-    /* Colors */
-    --color-bg: #FDFBF7;
-    --color-text-primary: #1A1A1A;
-    --color-text-secondary: #4A4A4A;
-    --color-accent: #C1624D;
-    --color-surface: #F1EBE4;
-    --color-border: #E0E0E0;
+    /* Colors - Creative Edge Dark Theme */
+    --color-bg: #0C0C0C;
+    --color-text-primary: #F2F2F2;
+    --color-text-secondary: #A0A0A0;
+    --color-accent: #FF4D29;
+    /* Blaze Orange */
+    --color-surface: #161616;
+    --color-border: rgba(255, 255, 255, 0.1);
+    --color-glass: rgba(255, 255, 255, 0.03);
+    --color-accent-glow: rgba(255, 77, 41, 0.3);
 
     /* Typography */
     --font-heading: 'Outfit', sans-serif;
@@ -175,14 +178,15 @@ header {
     display: flex;
     align-items: center;
     z-index: 1000;
-    background-color: rgba(253, 251, 247, 0.9);
-    /* Transparent bg */
-    backdrop-filter: blur(10px);
+    background-color: rgba(12, 12, 12, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     border-bottom: 1px solid transparent;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 header.scrolled {
+    background-color: rgba(12, 12, 12, 0.9);
     border-bottom: 1px solid var(--color-border);
 }
 
@@ -232,50 +236,45 @@ nav a {
 .btn {
     display: inline-block;
     padding: 1rem 2.5rem;
-    background-color: var(--color-text-primary);
+    background-color: var(--color-accent);
     color: #fff;
-    /* Always white text on dark btn */
     font-family: var(--font-heading);
-    font-weight: 500;
+    font-weight: 600;
     font-size: 1rem;
-    border: 1px solid var(--color-text-primary);
+    border: none;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     letter-spacing: 0.5px;
     text-transform: uppercase;
     position: relative;
     overflow: hidden;
     z-index: 1;
+    border-radius: 4px;
 }
 
 .btn::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
 }
 
 .btn:hover::before {
-    width: 300px;
-    height: 300px;
+    left: 100%;
 }
 
 .btn:hover {
-    background-color: var(--color-accent);
-    border-color: var(--color-accent);
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(193, 98, 77, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px var(--color-accent-glow);
+    filter: brightness(1.1);
 }
 
 .btn:active {
-    transform: translateY(0);
+    transform: translateY(-1px);
 }
 
 .btn-sm {
@@ -356,29 +355,30 @@ nav a {
 
 .blob {
     position: absolute;
-    filter: blur(80px);
-    opacity: 0.4;
-    animation: float 20s infinite alternate ease-in-out;
+    filter: blur(120px);
+    opacity: 0.15;
+    animation: float 25s infinite alternate ease-in-out;
+    mix-blend-mode: screen;
 }
 
 .blob-1 {
-    top: -10%;
+    top: -20%;
     right: -10%;
-    width: 600px;
-    height: 600px;
+    width: 800px;
+    height: 800px;
     background: var(--color-accent);
     border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
 }
 
 .blob-2 {
-    bottom: -10%;
+    bottom: -20%;
     left: -10%;
-    width: 500px;
-    height: 500px;
-    background: #D4A373;
-    /* Sand color */
+    width: 600px;
+    height: 600px;
+    background: #4A90E2;
+    /* Deep blue accent for balance */
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    animation-delay: -5s;
+    animation-delay: -7s;
 }
 
 @keyframes float {
@@ -415,6 +415,75 @@ nav a {
 
 /* --- End Visual Polish --- */
 
+/* Projects Grid */
+.projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+    .projects-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.project-card {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    background: var(--color-surface);
+    cursor: pointer;
+    border: 1px solid var(--color-border);
+}
+
+.project-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #1A1A1A, #0C0C0C);
+    color: var(--color-text-secondary);
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    transition: all 0.5s ease;
+}
+
+.project-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: var(--spacing-md);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.project-card:hover .project-info {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.project-card:hover .project-image-placeholder {
+    transform: scale(1.1);
+    filter: brightness(0.6);
+}
+
+.project-info h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+    color: #fff;
+}
+
+.project-info p {
+    font-size: 0.9rem;
+    color: var(--color-accent);
+}
+
 /* Services Grid */
 .services-grid {
     display: grid;
@@ -432,21 +501,33 @@ nav a {
 .service-card {
     padding: var(--spacing-md) 0;
     border-bottom: 1px solid var(--color-border);
-    transition: padding-left 0.3s ease;
+    transition: all 0.4s ease;
+    cursor: pointer;
 }
 
 .service-card:hover {
     padding-left: var(--spacing-sm);
+    border-bottom-color: var(--color-accent);
 }
 
 .service-card h3 {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     margin-bottom: 0.5rem;
-    opacity: 0.8;
+    color: var(--color-text-primary);
+    transition: color 0.3s ease;
+}
+
+.service-card:hover h3 {
+    color: var(--color-accent);
 }
 
 .service-card p {
     color: var(--color-text-secondary);
+    transition: color 0.3s ease;
+}
+
+.service-card:hover p {
+    color: var(--color-text-primary);
 }
 
 /* Bento Grid (Why Corise) */
@@ -464,8 +545,10 @@ nav a {
 
 .card {
     padding: var(--spacing-md);
+    background: var(--color-glass);
     border: 1px solid var(--color-border);
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backdrop-filter: blur(5px);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -473,48 +556,36 @@ nav a {
     position: relative;
     overflow: hidden;
     cursor: pointer;
-}
-
-.card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(193, 98, 77, 0.1), transparent);
-    transition: left 0.5s ease;
-}
-
-.card:hover::before {
-    left: 100%;
+    border-radius: 8px;
 }
 
 .card:hover {
     border-color: var(--color-accent);
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 12px 24px rgba(193, 98, 77, 0.15);
-    background: linear-gradient(135deg, var(--color-surface) 0%, rgba(255, 255, 255, 0.9) 100%);
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--color-accent-glow);
 }
 
 .card h3 {
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
     position: relative;
     z-index: 1;
 }
 
 .card:hover h3 {
     color: var(--color-accent);
+    transform: translateX(5px);
 }
 
 .card p {
     position: relative;
     z-index: 1;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    color: var(--color-text-secondary);
 }
 
 .card:hover p {
-    transform: translateX(4px);
+    color: var(--color-text-primary);
 }
 
 /* Process Steps */
@@ -553,10 +624,12 @@ nav a {
 .step:hover::before {
     height: 3px;
     background-color: var(--color-accent);
+    box-shadow: 0 0 10px var(--color-accent-glow);
 }
 
 .step:hover {
     transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.02);
 }
 
 .step-number {
@@ -592,36 +665,28 @@ nav a {
 
 .industry-list li {
     font-family: var(--font-heading);
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     color: var(--color-text-secondary);
     border: 1px solid var(--color-border);
-    padding: 0.5rem 1.5rem;
+    padding: 0.6rem 1.8rem;
     border-radius: 50px;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
     cursor: pointer;
     position: relative;
-}
-
-.industry-list li::after {
-    content: '→';
-    position: absolute;
-    right: 1rem;
-    opacity: 0;
-    transform: translateX(-10px);
-    transition: all 0.3s ease;
+    background: var(--color-glass);
 }
 
 .industry-list li:hover {
     border-color: var(--color-accent);
-    color: var(--color-accent);
-    background: rgba(193, 98, 77, 0.05);
-    transform: translateX(8px);
-    padding-right: 2.5rem;
+    color: #fff;
+    background: var(--color-accent);
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px var(--color-accent-glow);
 }
 
-.industry-list li:hover::after {
-    opacity: 1;
-    transform: translateX(0);
+.industry-list li::after {
+    display: none;
+    /* Removed the arrow for a cleaner pill look */
 }
 
 /* Client Logos */
@@ -645,7 +710,7 @@ nav a {
     font-weight: 500;
     color: var(--color-text-secondary);
     padding: var(--spacing-md);
-    background: rgba(255, 255, 255, 0.5);
+    background: var(--color-glass);
     border: 1px solid var(--color-border);
     display: flex;
     align-items: center;
@@ -654,14 +719,15 @@ nav a {
     min-height: 100px;
     transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     cursor: pointer;
+    border-radius: 4px;
 }
 
 .logo-item:hover {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.05);
     border-color: var(--color-accent);
     transform: translateY(-8px) rotate(2deg);
-    box-shadow: 0 8px 20px rgba(193, 98, 77, 0.2);
-    color: var(--color-accent);
+    box-shadow: 0 8px 20px var(--color-accent-glow);
+    color: #fff;
     font-weight: 600;
 }
 
@@ -699,9 +765,14 @@ cite {
 
 /* Footer */
 footer {
-    padding: var(--spacing-md) 0;
+    padding: var(--spacing-lg) 0;
     border-top: 1px solid var(--color-border);
     text-align: center;
     font-size: 0.9rem;
     color: var(--color-text-secondary);
+    background: #080808;
+}
+
+footer p {
+    opacity: 0.6;
 }
